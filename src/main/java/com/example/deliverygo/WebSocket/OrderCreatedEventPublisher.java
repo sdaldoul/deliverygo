@@ -34,7 +34,9 @@ class OrderCreatedEventPublisher implements ApplicationListener<OrderCreatedEven
 	@Override
 	public void accept(FluxSink<OrderCreatedEvent> sink) {
 
-		this.executor.execute(() -> {
+		// if u keep the executor ==> No need for refresh bu the connection close
+		// if u remove executor  ==> u will have to run two times the App
+		//this.executor.execute(() -> {
 			while (true) {
 				try {
 					OrderCreatedEvent event = queue.take(); // <5>
@@ -43,6 +45,6 @@ class OrderCreatedEventPublisher implements ApplicationListener<OrderCreatedEven
 					ReflectionUtils.rethrowRuntimeException(e);
 				}
 			}
-		});
+		//});
 	}
 }

@@ -1,9 +1,9 @@
 package com.example.deliverygo.controller;
 
 
-import com.example.deliverygo.model.Product;
 import com.example.deliverygo.model.ProductEvent;
-import com.example.deliverygo.repository.ProductRepository;
+import com.example.deliverygo.model.Proposal;
+import com.example.deliverygo.repository.proposalRepository;
 import java.time.Duration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,35 +15,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/products")
-public class ProductController {
+@RequestMapping("/proposals")
+public class ProposalController {
 
-    private ProductRepository repository;
+    private proposalRepository repository;
 
-    public ProductController(ProductRepository repository) {
+    public ProposalController(proposalRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping
-    public Flux<Product> getAllProducts() {
+    public Flux<Proposal> getAllProducts() {
         return repository.findAll();
     }
 
-		@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-		@ResponseBody
-		public Flux<Product> getProductStreaming() {
-			return repository.findWithTailableCursorBy();
-		}
-
     @GetMapping("{id}")
-    public Mono<ResponseEntity<Product>> getProduct(@PathVariable String id) {
+    public Mono<ResponseEntity<Proposal>> getProposal(@PathVariable String id) {
         return repository.findById(id)
                 .map(product -> ResponseEntity.ok(product))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -51,35 +44,34 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Product> saveProduct(@RequestBody Product product) {
+    public Mono<Proposal> saveProposal(@RequestBody Proposal product) {
         return repository.save(product);
     }
 
     @PutMapping("{id}")
-    public Mono<ResponseEntity<Product>> updateProduct(@PathVariable(value = "id") String id,
-                                                       @RequestBody Product product) {
+    public Mono<ResponseEntity<Proposal>> updateProposal(@PathVariable(value = "id") String id,
+                                                       @RequestBody Proposal proposal) {
         return repository.findById(id)
-                .flatMap(existingProduct -> {
-                    existingProduct.setName(product.getName());
-                    existingProduct.setPrice(product.getPrice());
-                    return repository.save(existingProduct);
+                .flatMap(existingProposal -> {
+                    existingProposal.setUser(proposal.getUser());
+                    return repository.save(existingProposal);
                 })
                 .map(updateProduct -> ResponseEntity.ok(updateProduct))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{id}")
-    public Mono<ResponseEntity<Void>> deleteProduct(@PathVariable(value = "id") String id) {
+    public Mono<ResponseEntity<Void>> deleteProposal(@PathVariable(value = "id") String id) {
         return repository.findById(id)
-                .flatMap(existingProduct ->
-                        repository.delete(existingProduct)
+                .flatMap(existingProposal ->
+                        repository.delete(existingProposal)
                                 .then(Mono.just(ResponseEntity.ok().<Void>build()))
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping
-    public Mono<Void> deleteAllProducts() {
+    public Mono<Void> deleteAllProposal() {
         return repository.deleteAll();
     }
 

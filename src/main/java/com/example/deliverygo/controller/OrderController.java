@@ -2,14 +2,12 @@ package com.example.deliverygo.controller;
 
 import com.example.deliverygo.WebSocket.OrderCreatedEvent;
 import com.example.deliverygo.model.Order;
-import com.example.deliverygo.model.Proposal;
 import com.example.deliverygo.repository.OrderRepository;
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +37,7 @@ public class OrderController {
 		return orderRepository.findAll();
 	}
 
+	// You must set Order as capped document to make it work
 	@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	@ResponseBody
 	public Flux<Order> getOrderStreaming() {
@@ -60,15 +59,18 @@ public class OrderController {
 	}
 
 	@PutMapping("{id}")
-	public Mono<ResponseEntity<Order>> updateOrder(@PathVariable(value = "id") String id, @RequestBody Proposal proposal) {
-		return orderRepository.findById(id).flatMap(existingProduct -> {
-			if (CollectionUtils.isEmpty(existingProduct.getProposals())) {
-				existingProduct.setProposals(Arrays.asList(proposal));
-			} else {
-				existingProduct.getProposals().add(proposal);
-			}
-			return orderRepository.save(existingProduct);
-		}).map(updateProduct -> ResponseEntity.ok(updateProduct)).defaultIfEmpty(ResponseEntity.notFound().build());
+	public Mono<ResponseEntity<Order>> updateOrder(@PathVariable(value = "id") String id, @RequestBody Order order) {
+		return orderRepository
+				.findById(id)
+				.flatMap(existingProduct -> {
+					existingProduct.setOrderUpdateDateTime(LocalDateTime.now());
+					existingProduct.setProductName(order.getProductName());
+					existingProduct.setReadyToPay(order.getReadyToPay());
+					existingProduct.setCityToCollect(order.getCityToCollect());
+					return orderRepository.save(existingProduct);
+				})
+				.map(updateProduct -> ResponseEntity.ok(updateProduct))
+				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
 
 }
