@@ -2,25 +2,50 @@ package com.example.deliverygo.WebSocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Collections;
-import javax.annotation.PostConstruct;
-import org.springframework.http.HttpHeaders;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 @RestController
+@Log4j2
 public class ServerSentEventController {
 
-	/*private final Flux<OrderCreatedEvent> events;
+	private final Flux<OrderCreatedEvent> events;
 	private final ObjectMapper objectMapper;
 
 
 	public ServerSentEventController(OrderCreatedEventPublisher eventPublisher, ObjectMapper objectMapper) {
-		this.events = Flux.create(eventPublisher).share();
+
+		AtomicInteger atomicUserNbrConnected = new AtomicInteger(0);
+
+		this.events = Flux
+				.generate(eventPublisher)
+				.share()
+				.doOnCancel(() -> {
+					Integer integer;
+					log.info("doOnCancel {}", integer = atomicUserNbrConnected.decrementAndGet());
+					if (integer.intValue() == 0) {
+						eventPublisher.OfferStart("END");
+						log.info("SEND END {}", integer);
+					}
+				})
+				.doFirst(() -> {
+					Integer integerdoOnComplete;
+					log.info("doFirst {}", integerdoOnComplete = atomicUserNbrConnected.incrementAndGet());
+					if (integerdoOnComplete.intValue() == 1) {
+						eventPublisher.OfferStart("START");
+						log.info("SEND STRAT {}", integerdoOnComplete);
+					}
+				})
+				.doOnComplete(() -> log.info("doOnComplete"))
+				.subscribeOn(Schedulers.fromExecutor(Executors.newWorkStealingPool()));
+
 		this.objectMapper = objectMapper;
 	}
 
@@ -34,5 +59,5 @@ public class ServerSentEventController {
 				throw new RuntimeException(e);
 			}
 		});
-	}*/
+	}
 }

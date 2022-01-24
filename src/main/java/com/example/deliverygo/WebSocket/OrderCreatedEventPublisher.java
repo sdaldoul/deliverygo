@@ -42,7 +42,4 @@ class OrderCreatedEventPublisher implements ApplicationListener<OrderCreatedEven
 		this.queue.offer(new OrderCreatedEvent(Order.builder().id(s).build()));
 	}
 
-	public void doOnCompleteEvent(){
-
-	}
 }
