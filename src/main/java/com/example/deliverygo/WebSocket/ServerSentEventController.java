@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 @RestController
 public class ServerSentEventController {
 
-	private final Flux<OrderCreatedEvent> events;
+	/*private final Flux<OrderCreatedEvent> events;
 	private final ObjectMapper objectMapper;
 
 
@@ -34,5 +34,5 @@ public class ServerSentEventController {
 				throw new RuntimeException(e);
 			}
 		});
-	}
+	}*/
 }
