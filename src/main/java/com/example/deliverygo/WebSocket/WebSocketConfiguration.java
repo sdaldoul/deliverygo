@@ -22,6 +22,9 @@ import reactor.core.scheduler.Schedulers;
 
 @Log4j2
 @Configuration
+/*
+* wscat -c "ws://localhost:8080/ws/profiles"
+* */
 class WebSocketConfiguration {
 
 	@Bean
@@ -49,7 +52,7 @@ class WebSocketConfiguration {
 
 		AtomicInteger atomicUserNbrConnected = new AtomicInteger(0);
 
-		Flux<OrderCreatedEvent> integerFlux = Flux.generate(eventPublisher).share();
+		Flux<OrderEvent> integerFlux = Flux.generate(eventPublisher).share();
 
 		return session -> {
 

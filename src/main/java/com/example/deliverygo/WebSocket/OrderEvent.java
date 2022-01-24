@@ -3,9 +3,9 @@ package com.example.deliverygo.WebSocket;
 import com.example.deliverygo.model.Order;
 import org.springframework.context.ApplicationEvent;
 
-public class OrderCreatedEvent extends ApplicationEvent {
+public class OrderEvent extends ApplicationEvent {
 
-    public OrderCreatedEvent(Order source) {
+    public OrderEvent(Order source) {
         super(source);
     }
 }

@@ -14,9 +14,10 @@ import reactor.core.scheduler.Schedulers;
 
 @RestController
 @Log4j2
+//curl 'http://localhost:8080/sse/orders' -v --noproxy '*'  | python -m json.tool
 public class ServerSentEventController {
 
-	private final Flux<OrderCreatedEvent> events;
+	private final Flux<OrderEvent> events;
 	private final ObjectMapper objectMapper;
 
 
@@ -49,6 +50,7 @@ public class ServerSentEventController {
 		this.objectMapper = objectMapper;
 	}
 
+	//curl 'http://localhost:8080/sse/orders' -v --noproxy '*'
 	@GetMapping(path = "/sse/orders", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	@CrossOrigin(origins = "http://localhost:3000")
 	public Flux<String> profiles() {
