@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class OrderEventType {
 
 	private String eventId;
-	private String eventType;
+	private OrderEventIdType eventType;
 }

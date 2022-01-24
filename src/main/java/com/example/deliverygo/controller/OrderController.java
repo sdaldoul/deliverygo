@@ -2,6 +2,7 @@ package com.example.deliverygo.controller;
 
 import com.example.deliverygo.WebSocket.OrderEvent;
 import com.example.deliverygo.model.Order;
+import com.example.deliverygo.model.OrderEventIdType;
 import com.example.deliverygo.model.OrderEventType;
 import com.example.deliverygo.repository.OrderRepository;
 import java.time.LocalDateTime;
@@ -60,7 +61,7 @@ public class OrderController {
 		return orderRepository
 				.save(order)
 				.doOnSuccess(orderCreated -> this.publisher.publishEvent
-						(new OrderEvent(OrderEventType.builder().eventId(orderCreated.getId()).eventType("CREATE_ORDER").build())));
+						(new OrderEvent(OrderEventType.builder().eventId(orderCreated.getId()).eventType(OrderEventIdType.CREATE_ORDER).build())));
 
 	}
 
@@ -70,7 +71,7 @@ public class OrderController {
 				.findById(id)
 				.flatMap(existingOrder -> orderRepository
 								.delete(existingOrder)
-					    	.doOnSuccess(notUsed -> this.publisher.publishEvent(new OrderEvent(OrderEventType.builder().eventId(id).eventType("DELETE_ORDER").build())))
+					    	.doOnSuccess(notUsed -> this.publisher.publishEvent(new OrderEvent(OrderEventType.builder().eventId(id).eventType(OrderEventIdType.DELETE_ORDER).build())))
 								.then(Mono.just(ResponseEntity.ok().<Void>build()))
 				)
 				.defaultIfEmpty(ResponseEntity.notFound().build());
@@ -89,7 +90,7 @@ public class OrderController {
 					return orderRepository.save(existingProduct);
 				})
 				.map(updateOrder -> {
-					this.publisher.publishEvent(new OrderEvent(OrderEventType.builder().eventId(updateOrder.getId()).eventType("UPDATE_ORDER").build()));
+					this.publisher.publishEvent(new OrderEvent(OrderEventType.builder().eventId(updateOrder.getId()).eventType(OrderEventIdType.UPDATE_ORDER).build()));
 					return ResponseEntity.ok(updateOrder);
 				})
 				.defaultIfEmpty(ResponseEntity.notFound().build());

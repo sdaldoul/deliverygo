@@ -1,6 +1,7 @@
 package com.example.deliverygo.WebSocket;
 
 import com.example.deliverygo.model.Order;
+import com.example.deliverygo.model.OrderEventIdType;
 import com.example.deliverygo.model.OrderEventType;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -40,7 +41,7 @@ class OrderCreatedEventPublisher implements ApplicationListener<OrderEvent>, Con
 	}
 
 	public void OfferStart(String s) {
-		this.queue.offer(new OrderEvent(OrderEventType.builder().eventId(s).eventType("CONFIG_ORDER").build()));
+		this.queue.offer(new OrderEvent(OrderEventType.builder().eventId(s).eventType(OrderEventIdType.CONFIG_ORDER).build()));
 	}
 
 }
