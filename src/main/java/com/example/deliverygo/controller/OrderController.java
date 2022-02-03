@@ -6,6 +6,7 @@ import com.example.deliverygo.model.OrderEventIdType;
 import com.example.deliverygo.model.OrderEventType;
 import com.example.deliverygo.repository.OrderRepository;
 import java.time.LocalDateTime;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/orders")
+@Log4j2
 public class OrderController {
 
 	private final OrderRepository orderRepository;
@@ -61,7 +63,8 @@ public class OrderController {
 		return orderRepository
 				.save(order)
 				.doOnSuccess(orderCreated -> this.publisher.publishEvent
-						(new OrderEvent(OrderEventType.builder().eventId(orderCreated.getId()).eventType(OrderEventIdType.CREATE_ORDER).build())));
+						(new OrderEvent(OrderEventType.builder().eventId(orderCreated.getId()).eventType(OrderEventIdType.CREATE_ORDER).build())))
+				.doOnError(throwable -> log.info(throwable.getMessage()));
 
 	}
 

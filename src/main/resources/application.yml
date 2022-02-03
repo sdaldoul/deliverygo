@@ -1,0 +1,22 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 649811592997458
+            client-secret: 4c09368d8dd775663ac1d5a48e7894e9
+#            scope: public_profile email user_location
+          google:
+            client-id: 688455436639-mu5on3uvm1qpfmf9kj0sp4of0brh07ip.apps.googleusercontent.com
+            client-secret: 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
+  data:
+    mongodb:
+      uri: mongodb://webrole:password@localhost:27017/codeWithDan
+
+logging:
+  level:
+    root: INFO
+    com.memorynotfound: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
