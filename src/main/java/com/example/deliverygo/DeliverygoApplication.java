@@ -109,8 +109,7 @@ public class DeliverygoApplication {
       //UserDto userDto = new UserDto("firstname","lastname","user","user@gmail.com","user","user",1234,1234);
 			//registrationService.registerNewUser(userDto);
 			log.info("######### START cryptoUser START ########");
-			CryptoUser cryptoUser = new CryptoUser("user", "firstname", "lastname", "user@gmail.com", encoder.encode("user"),
-					encoder.encode("1234"));
+			CryptoUser cryptoUser = new CryptoUser("user", "firstname", "lastname", "user@gmail.com", encoder.encode("user"));
 			cryptoUser.setVerified(true);
 			Flux<CryptoUser> cryptoUserFlux= Flux.just(cryptoUser).flatMap(cryptoUserRepository::save);
 

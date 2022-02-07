@@ -24,8 +24,7 @@ public class UserRegistrationService {
 				user.getFirstname(),
 				user.getLastname(),
 				user.getEmail(),
-				encoder.encode(user.getPassword()),
-				encoder.encode(String.valueOf(user.getSecurityPin()))
+				encoder.encode(user.getPassword())
 		);
 		cryptUser.setVerified(true);
 		return repository

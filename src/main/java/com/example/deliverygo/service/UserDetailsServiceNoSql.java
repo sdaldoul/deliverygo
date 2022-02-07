@@ -46,7 +46,6 @@ public class UserDetailsServiceNoSql implements ReactiveUserDetailsService {
 		springUser.setFirstName(cryptoUser.getFirstName());
 		springUser.setLastName(cryptoUser.getLastName());
 		springUser.setEmail(cryptoUser.getEmail());
-		springUser.setSecurityPin(cryptoUser.getSecurityPin());
 		return springUser;
 	}
 
