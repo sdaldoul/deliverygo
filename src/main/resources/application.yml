@@ -4,8 +4,8 @@ spring:
       client:
         registration:
           facebook:
-            client-id: 649811592997458
-            client-secret: 4c09368d8dd775663ac1d5a48e7894e9
+            client-id: 1089766808480507
+            client-secret: 7be3b8dcf09da875c8194782cf6bb87b
 #            scope: public_profile email user_location
           google:
             client-id: 688455436639-mu5on3uvm1qpfmf9kj0sp4of0brh07ip.apps.googleusercontent.com
@@ -14,9 +14,17 @@ spring:
     mongodb:
       uri: mongodb://webrole:password@localhost:27017/codeWithDan
 
+#server:
+#  port: 8443
+#  ssl:
+#    key-store-password: password
+#    key-store: classpath:keystore.p12
+#    key-store-type: PKCS12
+#    key-alias: tomcat
+
 logging:
   level:
     root: INFO
     com.memorynotfound: INFO
     org.springframework.web: INFO
-    org.springframework.security: DEBUG
+    org.springframework.security: TRACE

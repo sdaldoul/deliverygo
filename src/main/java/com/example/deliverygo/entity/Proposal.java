@@ -1,5 +1,6 @@
-package com.example.deliverygo.model;
+package com.example.deliverygo.entity;
 
+import com.example.deliverygo.model.UserProfile;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

@@ -1,27 +1,29 @@
 package com.example.deliverygo;
 
-import com.example.deliverygo.model.Order;
-import com.example.deliverygo.model.Proposal;
+import com.example.deliverygo.entity.CryptoUser;
+import com.example.deliverygo.entity.Order;
+import com.example.deliverygo.entity.Proposal;
 import com.example.deliverygo.model.UserProfile;
+import com.example.deliverygo.repository.CryptoUserRepository;
 import com.example.deliverygo.repository.OrderRepository;
-import com.example.deliverygo.repository.proposalRepository;
+import com.example.deliverygo.repository.ProposalRepository;
+import com.example.deliverygo.service.UserRegistrationService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import reactor.core.publisher.Flux;
 import reactor.tools.agent.ReactorDebugAgent;
 
 @SpringBootApplication
+@Slf4j
 public class DeliverygoApplication {
 
 	public static void main(String[] args) {
@@ -31,8 +33,11 @@ public class DeliverygoApplication {
 
 	@Bean
 	CommandLineRunner init(ReactiveMongoOperations operations,
-			proposalRepository repository,
-			OrderRepository orderRepository) {
+			ProposalRepository repository,
+			CryptoUserRepository cryptoUserRepository,
+			OrderRepository orderRepository,
+			UserRegistrationService registrationService,
+			PasswordEncoder encoder) {
 		return args -> {
 
 	/* CollectionOptions options = CollectionOptions.empty()
@@ -98,6 +103,25 @@ public class DeliverygoApplication {
 					.thenMany(orderFlux)
 					.thenMany(orderRepository.findAll())
 					.subscribe(System.out::println);
+
+			//save user
+
+      //UserDto userDto = new UserDto("firstname","lastname","user","user@gmail.com","user","user",1234,1234);
+			//registrationService.registerNewUser(userDto);
+			log.info("######### START cryptoUser START ########");
+			CryptoUser cryptoUser = new CryptoUser("user", "firstname", "lastname", "user@gmail.com", encoder.encode("user"),
+					encoder.encode("1234"));
+			cryptoUser.setVerified(true);
+			Flux<CryptoUser> cryptoUserFlux= Flux.just(cryptoUser).flatMap(cryptoUserRepository::save);
+
+			cryptoUserRepository
+					.deleteAll()
+					.thenMany(cryptoUserFlux)
+					.thenMany(cryptoUserRepository.findAll())
+					.subscribe(System.out::println);
+
+			log.info("######### END cryptoUser END ########");
+
 
 		};
 	}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8" />
+<title>Crypto Portfolio</title>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="../css/portfolio.css" th:href="@{css/portfolio.css}" />
+<script src="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.0/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1/jquery.min.js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-sm  navbar-light crypt_nav">
+	  <div class="container-fluid">
+    	<div class="navbar-header">
+    		<a class="navbar-brand" href="#">Spring - Crypto Portfolio</a>
+    	</div>
+		<ul class="nav navbar-nav">
+			<li class="nav-item active">
+				<a class="nav-link" href="/portfolio">Home</a>
+			</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">Login</a>
+					</li>
+		</ul>
+
+		</div>
+	</nav>
+
+	<div class="container">
+		<h3>Welcome to Delivery GO Portfolio</h3>
+	</div>
+
+	<script>
+		if (!!window.EventSource) {
+			var evtSource = new EventSource('/sse/orders'); //http://localhost:8080/index.html
+			var eventList = document.querySelector('ul');
+
+			evtSource.onmessage = function(e) {
+				var newElement = document.createElement("li");
+
+				newElement.textContent = "Event: " + e.data;
+				eventList.appendChild(newElement);
+			}
+		} else {
+			alert("The browser doesn't support SSE");
+		}
+	</script>
+
+<!--	<script type="text/javascript">-->
+
+<!--		/*var clientWebSocket = new WebSocket("ws://localhost:8080/ws/orders");-->
+<!--		var newElement = document.createElement("la");-->
+<!--		clientWebSocket.onopen = function() {-->
+<!--			console.log("clientWebSocket.onopen", clientWebSocket);-->
+<!--			console.log("clientWebSocket.readyState", "websocketstatus");-->
+<!--			clientWebSocket.send("event-me-from-browser 1");-->
+<!--		}-->
+<!--		clientWebSocket.onclose = function(error) {-->
+<!--			console.log("clientWebSocket.onclose", clientWebSocket, error);-->
+<!--			events("Closing connection");-->
+<!--		}-->
+<!--		clientWebSocket.onerror = function(error) {-->
+<!--			console.log("clientWebSocket.onerror", clientWebSocket, error);-->
+<!--			events("An error occured");-->
+<!--		}-->
+<!--		clientWebSocket.onmessage = function(error) {-->
+<!--			console.log("clientWebSocket.onmessage", clientWebSocket, error);-->
+<!--			events(error.data);-->
+<!--		}-->
+<!--		function events(responseEvent) {-->
+<!--			newElement.textContent = "Event: " + responseEvent.data;-->
+<!--			eventList.appendChild(newElement);-->
+<!--		}*/-->
+<!--		// <1>-->
+<!--		/*			var socket = new WebSocket('ws://localhost:8080/ws/profiles');-->
+<!--					// <2>-->
+<!--					socket.addEventListener('message', function (event) {-->
+<!--						//window.alert('message from server: ' + event.data);-->
+<!--						var newElement = document.createElement("li");-->
+
+<!--						newElement.textContent = "Event: " + event.data;-->
+<!--						eventList.appendChild(newElement);-->
+<!--					});*/-->
+
+<!--		if (!!window.EventSource) {-->
+<!--			var evtSource = new EventSource('/sse/orders'); //http://localhost:8080/index.html-->
+<!--			var eventList = document.querySelector('ul');-->
+
+<!--			evtSource.onmessage = function(e) {-->
+<!--				var newElement = document.createElement("li");-->
+
+<!--				newElement.textContent = "Event: " + e.data;-->
+<!--				eventList.appendChild(newElement);-->
+<!--			}-->
+<!--		} else {-->
+<!--			alert("The browser doesn't support SSE");-->
+<!--		}-->
+<!--	</script>-->
+
+</body>
+</html>

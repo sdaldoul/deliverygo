@@ -1,6 +1,6 @@
 package com.example.deliverygo.WebSocket;
 
-import com.example.deliverygo.model.Order;
+import com.example.deliverygo.entity.Order;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;

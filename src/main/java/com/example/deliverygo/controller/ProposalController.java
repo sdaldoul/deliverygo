@@ -2,8 +2,8 @@ package com.example.deliverygo.controller;
 
 
 import com.example.deliverygo.model.ProductEvent;
-import com.example.deliverygo.model.Proposal;
-import com.example.deliverygo.repository.proposalRepository;
+import com.example.deliverygo.entity.Proposal;
+import com.example.deliverygo.repository.ProposalRepository;
 import java.time.Duration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,9 +24,9 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/proposals")
 public class ProposalController {
 
-    private proposalRepository repository;
+    private ProposalRepository repository;
 
-    public ProposalController(proposalRepository repository) {
+    public ProposalController(ProposalRepository repository) {
         this.repository = repository;
     }
 

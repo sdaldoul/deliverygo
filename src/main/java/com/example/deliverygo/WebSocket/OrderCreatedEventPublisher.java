@@ -1,6 +1,5 @@
 package com.example.deliverygo.WebSocket;
 
-import com.example.deliverygo.model.Order;
 import com.example.deliverygo.model.OrderEventIdType;
 import com.example.deliverygo.model.OrderEventType;
 import java.util.concurrent.BlockingQueue;

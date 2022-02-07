@@ -1,7 +1,7 @@
 package com.example.deliverygo.controller;
 
 import com.example.deliverygo.WebSocket.OrderEvent;
-import com.example.deliverygo.model.Order;
+import com.example.deliverygo.entity.Order;
 import com.example.deliverygo.model.OrderEventIdType;
 import com.example.deliverygo.model.OrderEventType;
 import com.example.deliverygo.repository.OrderRepository;

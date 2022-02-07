@@ -26,6 +26,8 @@
     # 3 $ docker exec -it c902eb523afd /bin/bash
     # 4 root@c902eb523afd:/# mongosh
     # ***** mongo ******
+    # elyesbahlou@gmail.com
+    # Qwerty$123456
 
 version: "3.7"
 
