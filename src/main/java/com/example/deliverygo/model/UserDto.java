@@ -1,12 +1,12 @@
 package com.example.deliverygo.model;
 
-/*import com.pluralsight.security.validation.PasswordConfirmed;
-import com.pluralsight.security.validation.PasswordPolicy;
-import com.pluralsight.security.validation.UniqueEmail;
-import com.pluralsight.security.validation.UniqueUsername;
+import com.example.deliverygo.validation.PasswordConfirmed;
+import com.example.deliverygo.validation.PasswordPolicy;
+import com.example.deliverygo.validation.UniqueEmail;
+import com.example.deliverygo.validation.UniqueUsername;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;*/
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,28 +18,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Builder
-//@PasswordConfirmed
+@PasswordConfirmed
 public class UserDto {
 
-	//@NotEmpty(message="Please enter your firstname")
+	@NotEmpty(message="Please enter your firstname")
 	private String firstname;
-	//@NotEmpty(message="Please enter your lastname")
+	@NotEmpty(message="Please enter your lastname")
 	private String lastname;
-	//@NotEmpty(message="Please enter a username")
-	//@UniqueUsername
+	@NotEmpty(message="Please enter a username")
+	@UniqueUsername
 	private String username;
-	//@NotEmpty(message="Please enter an email")
-	//@Email(message="Email is not valid")
-	//@UniqueEmail
+	@NotEmpty(message="Please enter an email")
+	@Email(message="Email is not valid")
+	@UniqueEmail
 	private String email;
-	//@NotEmpty(message="Please enter in a password")
-	//@PasswordPolicy
+	@NotEmpty(message="Please enter in a password")
+	@PasswordPolicy
 	private String password;
-	//@NotEmpty(message="Please confirm your password")
+	@NotEmpty(message="Please confirm your password")
 	private String confirmPassword;
-	//@Min(4)
-	private int securityPin;
-	//@Min(4)
-	private int confirmSecurityPin;
 
 }

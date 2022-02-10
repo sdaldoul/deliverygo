@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 public interface CryptoUserRepository extends ReactiveMongoRepository<CryptoUser, String> {
 
 	Mono<CryptoUser> findByUsername(String username);
-	//CryptoUser findByEmail(String email);
+	Mono<CryptoUser> findByEmail(String email);
 
 }

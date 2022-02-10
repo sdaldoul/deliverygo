@@ -64,6 +64,12 @@
     <orderEntry type="library" name="Maven: io.netty:netty-codec-socks:4.1.66.Final" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webflux:5.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:2.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.50" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.2.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.4.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.5.1" level="project" />

@@ -1,9 +1,7 @@
 package com.example.deliverygo.entity;
 
-//import javax.validation.constraints.Email;
-import lombok.Builder;
+import javax.validation.constraints.Email;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,7 +25,7 @@ public class CryptoUser {
 	private String firstName;
 	@NonNull
 	private String lastName;
-	//@Email
+	@Email
 	@NonNull
 	private String email;
 	@NonNull

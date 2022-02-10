@@ -27,4 +27,4 @@ logging:
     root: INFO
     com.memorynotfound: INFO
     org.springframework.web: INFO
-    org.springframework.security: TRACE
+    org.springframework.security: INFO
