@@ -1,7 +1,10 @@
 package com.example.deliverygo.service;
 
+import com.example.deliverygo.entity.CryptoOauth2User;
 import com.example.deliverygo.entity.CryptoUser;
 import com.example.deliverygo.model.UserDto;
+import com.example.deliverygo.model.UserOAuth2Dto;
+import com.example.deliverygo.repository.CryptoOauth2UserRepository;
 import com.example.deliverygo.repository.CryptoUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +19,7 @@ public class UserRegistrationService {
 
 	private final CryptoUserRepository repository;
 	private final PasswordEncoder encoder;
-	//private final Oauth2UserRepository oauth2Repository;
+	private final CryptoOauth2UserRepository cryptoOauth2UserRepository;
 
 	public Mono<CryptoUser> registerNewUser(UserDto user) {
 		CryptoUser cryptUser = new CryptoUser(
@@ -33,12 +36,12 @@ public class UserRegistrationService {
 				.doOnError(throwable -> log.error(throwable.getMessage()));
 	}
 
-	/*public void registerNewAuth2User(UserOAuth2Dto userDto) {
+	public Mono<CryptoOauth2User> registerNewAuth2User(UserOAuth2Dto userDto) {
 		CryptoOauth2User user = new CryptoOauth2User(userDto.getUsername(),
 													 userDto.getFirstname(),
 													 userDto.getLastname(),
 													 userDto.getEmail());
-		oauth2Repository.save(user);
-	}*/
+		return cryptoOauth2UserRepository.save(user);
+	}
 
 }

@@ -56,26 +56,4 @@ public class UserDetailsServiceNoSql implements ReactiveUserDetailsService {
 				.switchIfEmpty(Mono.defer(() -> { return Mono.error(new UsernameNotFoundException("User Not Found")); }))
 				.map(this::toUserDetails);
 	}
-
-		/*@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		CryptoUser user = userRepository.findByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(username);
-		}
-		List<String> authorities = new ArrayList<>();
-		authorities.add(Authorities.ROLE_USER);
-	    MFAUser springUser = new MFAUser(user.getUsername(),
-                   user.getPassword(),
-                   user.isVerified(),
-                   DEFAULT_ACC_NON_EXP,
-                   DEFAULT_CRED_NON_EXP,
-                   DEFAULT_ACC_NON_LOCKED,
-                   buildAuthorities(authorities));
-	    springUser.setFirstName(user.getFirstName());
-	    springUser.setLastName(user.getLastName());
-	    springUser.setEmail(user.getEmail());
-	    springUser.setSecurityPin(user.getSecurityPin());
-	    return springUser;
-	}*/
 }

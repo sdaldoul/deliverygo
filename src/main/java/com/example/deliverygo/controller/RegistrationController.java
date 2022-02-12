@@ -51,8 +51,8 @@ public class RegistrationController {
 		return registrationService
 				.registerNewUser(user)
 				.flatMap(cryptoUser -> Mono.just("redirect:register?success"))
-				.onErrorReturn("register")
-				;
+				.onErrorReturn("register");
+
 		//this.portfolioService.createNewPortfolio(user.getUsername());
 
 		//return Mono.just("redirect:register?success");
