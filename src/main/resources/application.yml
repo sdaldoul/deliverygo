@@ -4,12 +4,12 @@ spring:
       client:
         registration:
           facebook:
-            client-id: 1089766808480507
-            client-secret: 7be3b8dcf09da875c8194782cf6bb87b
+            client-id: <client-id>
+            client-secret: <client-secret>
 #            scope: public_profile email user_location
           google:
-            client-id: 688455436639-mu5on3uvm1qpfmf9kj0sp4of0brh07ip.apps.googleusercontent.com
-            client-secret: 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
+            client-id: <client-id>
+            client-secret: <client-secret>
   data:
     mongodb:
       uri: mongodb://webrole:password@localhost:27017/codeWithDan
